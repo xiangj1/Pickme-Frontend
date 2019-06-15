@@ -11,18 +11,21 @@ import firebaseConfig from './config/FirebaseConfig';
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-// firebase.auth().signInWithEmailAndPassword(firebaseConfig.email, firebaseConfig.password)
-// .then(res => {
-//   console.log('signing successfully');
-// }).catch((err) => {
-//     console.log(err);
-// })
+var signedIn = false;
 
-firebase.auth().signOut().then((res) => {
-  console.log('signed out', res);
+firebase.auth().signInWithEmailAndPassword(firebaseConfig.email, firebaseConfig.password)
+.then(res => {
+  signedIn = true;
 }).catch((err) => {
-  console.log('!Signed out', err);
+  signedIn = false;
+  console.log(err);
 })
+
+// firebase.auth().signOut().then((res) => {
+//   console.log('signed out', res);
+// }).catch((err) => {
+//   console.log('!Signed out', err);
+// })
 
 class App extends React.Component {
   constructor(props) {
@@ -38,6 +41,16 @@ class App extends React.Component {
   //upload multi
   fileUploadHandler = async () => {
     try {
+      if(!this.state.files) {
+        alert('Please Select file');
+        return;
+      }
+      if(!signedIn) {
+        alert('Not signed in');
+        return;
+      } 
+
+      alert('Uploading, please wait');
       const storageRef = firebase.storage().ref();
       const databaseRef = firebase.database();
 
@@ -60,6 +73,8 @@ class App extends React.Component {
 
         })
       }));
+
+      alert('Upload successful');
     } catch (err) {
       console.log(err);
       alert('File is not been uploaded, check console');
