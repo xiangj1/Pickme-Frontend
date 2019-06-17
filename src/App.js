@@ -1,25 +1,8 @@
 import React from 'react';
 import './App.css';
 
-import  firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/storage';
-import 'firebase/database';
-
-import firebaseConfig from './config/FirebaseConfig';
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-
-var signedIn = false;
-
-firebase.auth().signInWithEmailAndPassword(firebaseConfig.email, firebaseConfig.password)
-.then(res => {
-  signedIn = true;
-}).catch((err) => {
-  signedIn = false;
-  console.log(err);
-})
+import Gallery from './components/Gallery';
+import firebase from './services/Firebase';
 
 // firebase.auth().signOut().then((res) => {
 //   console.log('signed out', res);
@@ -39,16 +22,12 @@ class App extends React.Component {
   }
 
   //upload multi
-  fileUploadHandler = async () => {
+  fileUploadHandler = async (event) => {
     try {
       if(!this.state.files) {
         alert('Please Select file');
         return;
       }
-      if(!signedIn) {
-        alert('Not signed in');
-        return;
-      } 
 
       alert('Uploading, please wait');
       const storageRef = firebase.storage().ref();
@@ -79,20 +58,8 @@ class App extends React.Component {
       console.log(err);
       alert('File is not been uploaded, check console');
     }
-  }
 
-  foo = () => {
-    const storageRef = firebase.storage().ref();
-
-    storageRef.child('/images').listAll().then((res) => {
-      console.log(res);
-
-      res.items.forEach((item) => {
-        item.getDownloadURL().then((res) => {
-          console.log(res);
-        })
-      })
-    }).catch(err => console.log(err));
+    event.preventDefault();
   }
 
   render() {
@@ -100,7 +67,7 @@ class App extends React.Component {
           <div className="App">
             <input id="file" type="file" onChange={this.handleChange.bind(this)} required multiple />
             <button onClick={this.fileUploadHandler}>Upload!</button>
-            <button onClick={this.foo}>Show</button>
+            <Gallery />
           </div>
       )
   }
