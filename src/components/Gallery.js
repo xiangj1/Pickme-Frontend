@@ -21,7 +21,7 @@ class Gallery extends React.Component {
     const databaseRef = firebase.database();
 
     const images = {};
-    databaseRef.ref('images/').once('value', (snapshot) => {
+    databaseRef.ref(`images/${code}/`).once('value', (snapshot) => {
       snapshot.forEach((record) => {
         images[record.key] = record.val();
       });
