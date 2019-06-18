@@ -14,5 +14,11 @@ firebase.auth().signInWithEmailAndPassword(firebaseConfig.email, firebaseConfig.
   console.log(err);
 })
 
+// firebase.auth().signOut().then((res) => {
+//   console.log('signed out', res);
+// }).catch((err) => {
+//   console.log('!Signed out', err);
+// })
+
 export default firebase;
 

@@ -55,6 +55,7 @@ class Gallery extends React.Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
+          <label>输入提取码</label>
           <input type="text" value={this.state.code} onChange={this.handleChange} ></input>
           <button type="submit">提交</button>
         </form>
