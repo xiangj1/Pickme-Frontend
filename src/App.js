@@ -43,7 +43,7 @@ class App extends React.Component {
             snapshot.ref.getDownloadURL()
             .then(url => {
               let [file_name] = file.name.split('.');
-              databaseRef.ref('images/' + file_name).set({file_name: file.name, url});
+              databaseRef.ref('images/' + file_name).set({file_name: file.name, url, selected: false});
 
               resolve({file_name: file.name, url})
 
