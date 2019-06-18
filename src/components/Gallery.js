@@ -7,6 +7,7 @@ class Gallery extends React.Component {
     this.state = {
       code: '',
       images: {}
+      
     };
   }
 
@@ -51,6 +52,12 @@ class Gallery extends React.Component {
     this.setState({code, images});
   }
 
+  handleSelect = () => {
+    const select_status = !this.state.select_status;
+
+    this.setState({...this.state, select_status});
+  }
+
   render() {
     return (
       <div className='m-5'>
@@ -59,8 +66,14 @@ class Gallery extends React.Component {
           <input type="text" value={this.state.code} onChange={this.handleChange} ></input>
           <button type="submit">提交</button>
         </form>
+        <input type="checkbox" onChange={this.handleSelect} />已选
         <div className="row">
-          {Object.entries(this.state.images).map(entry => {
+          {Object.entries(this.state.images).filter((entry) => {
+            if(!this.state.select_status)
+              return true;
+              
+            return entry[1].selected === this.state.select_status;
+          }).map(entry => {
             const [key, image_data] = entry;
             const {file_name, url, selected} = image_data;
             
