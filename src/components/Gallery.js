@@ -61,24 +61,32 @@ class Gallery extends React.Component {
   render() {
     return (
       <div className='m-5'>
-        <form onSubmit={this.handleSubmit}>
-          <label>输入提取码</label>
-          <input type="text" value={this.state.code} onChange={this.handleChange} ></input>
-          <button type="submit">提交</button>
-        </form>
-        <input type="checkbox" onChange={this.handleSelect} />已选
+        <div className="row px-5">
+          <form onSubmit={this.handleSubmit} className="form-row w-50">
+            <label>输入提取码</label>
+            <div className="col">
+              <input type="text" value={this.state.code} onChange={this.handleChange} className="form-control" ></input>
+            </div>
+            <div className="col">
+              <button type="submit" className="btn btn-primary">提交</button>
+            </div>
+            <div className="col">
+              <input type="checkbox" onChange={this.handleSelect} className="form-check form-check-inline" />已选
+            </div>
+          </form>
+        </div>
         <div className="row">
           {Object.entries(this.state.images).filter((entry) => {
             if(!this.state.select_status)
               return true;
-              
+
             return entry[1].selected === this.state.select_status;
           }).map(entry => {
             const [key, image_data] = entry;
             const {file_name, url, selected} = image_data;
             
             return (
-              <div className="col-lg-3 col-md-3 mb-3" key={key}>
+              <div className="col-lg-3 col-md-3 mt-3" key={key}>
                 <label>{file_name}</label>
                 <a href={url} target="_blank" rel="noopener noreferrer">
                   <img src={url} className="img-fluid mb-3" alt="" />

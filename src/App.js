@@ -7,7 +7,8 @@ import ImageUploader from './components/ImageUploader';
 class App extends React.Component {
   render() {
       return (
-          <div className="App">
+          <div className="col-12">
+            <br></br>
             <ImageUploader />
             <Gallery />
           </div>

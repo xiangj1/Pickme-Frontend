@@ -127,17 +127,24 @@ class ImageUploader extends React.Component {
       console.log('auth', firebase.auth());
       console.log('currentUser', firebase.auth().currentUser);
       return (
-        <form onSubmit={this.signIn}  className="m-2">
-            <input placeholder="邮箱" type="email" onChange={(event) => this.handleInput(event.target.value, 'email')} />
-            <input placeholder="密码" type="password" onChange={(event) => this.handleInput(event.target.value, 'password')} />
-            <button type="submit">登陆</button>
+        <form onSubmit={this.signIn}  className="mt-3 mx-5 px-5">
+          <div className="form-row w-50">
+            <div className="col">
+              <input placeholder="邮箱" type="email" className="form-control" onChange={(event) => this.handleInput(event.target.value, 'email')} />
+            </div>
+            <div className="col">
+              <input placeholder="密码" type="password" className="form-control" onChange={(event) => this.handleInput(event.target.value, 'password')} />
+            </div>
+            <button type="submit" className="btn btn-primary">登陆</button>
+          </div>
         </form>
       )
     }
 
     return (
-      <div className="">
-        <button onClick={this.signOut} className="m-2">登出</button><br />
+      <div className="mt-3 mx-5 px-5">
+        <button onClick={this.signOut} className="btn btn-secondary">登出</button><br />
+        
         <label>创建提取码</label>
         <input type="text" onChange={this.handleCode} className="m-2" /><br />
         <input id="file" type="file" onChange={this.handleChange.bind(this)} required multiple className="m-2"/>
