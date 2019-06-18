@@ -7,12 +7,12 @@ import firebaseConfig from '../config/FirebaseConfig';
 
 firebase.initializeApp(firebaseConfig);
 
-firebase.auth().signInWithEmailAndPassword(firebaseConfig.email, firebaseConfig.password)
-.then(res => {
-  console.log(res);
-}).catch((err) => {
-  console.log(err);
-})
+// firebase.auth().signInWithEmailAndPassword(firebaseConfig.email, firebaseConfig.password)
+// .then(res => {
+//   console.log(res);
+// }).catch((err) => {
+//   console.log(err);
+// })
 
 // firebase.auth().signOut().then((res) => {
 //   console.log('signed out', res);

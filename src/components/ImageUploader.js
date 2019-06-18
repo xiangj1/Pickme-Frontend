@@ -38,6 +38,11 @@ class ImageUploader extends React.Component {
         return;
       }
 
+      if(!firebase.auth().currentUser) {
+        alert('请先登陆');
+        return;
+      }
+
       alert('Uploading, please wait');
       const storageRef = firebase.storage().ref();
       const databaseRef = firebase.database();
@@ -72,6 +77,9 @@ class ImageUploader extends React.Component {
   }
 
   render() {
+    if(!firebase.auth().currentUser)
+      return <div />
+      
     return (
       <div>
         <input type="text" onChange={this.handleCode} />
