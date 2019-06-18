@@ -46,14 +46,14 @@ class Gallery extends React.Component {
     image_data.selected = !image_data.selected;
     images[key] = image_data;
 
-    databaseRef.ref('images/' + key).set(image_data);
+    databaseRef.ref(`images/${code}/` + key).set(image_data);
 
     this.setState({code, images});
   }
 
   render() {
     return (
-      <div>
+      <div className='m-5'>
         <form onSubmit={this.handleSubmit}>
           <label>输入提取码</label>
           <input type="text" value={this.state.code} onChange={this.handleChange} ></input>
