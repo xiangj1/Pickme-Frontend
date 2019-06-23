@@ -128,14 +128,16 @@ class ImageUploader extends React.Component {
       console.log('currentUser', firebase.auth().currentUser);
       return (
         <form onSubmit={this.signIn}  className="mt-3 mx-5 px-5">
-          <div className="form-row w-50">
-            <div className="col">
+          <div className="form-row">
+            <div className="col-12 col-lg-3 mb-3">
               <input placeholder="邮箱" type="email" className="form-control" onChange={(event) => this.handleInput(event.target.value, 'email')} />
             </div>
-            <div className="col">
+            <div className="col-12 col-lg-3 mb-3">
               <input placeholder="密码" type="password" className="form-control" onChange={(event) => this.handleInput(event.target.value, 'password')} />
             </div>
-            <button type="submit" className="btn btn-primary">登陆</button>
+            <div className="col-12 col-lg-3 mb-3">
+              <button type="submit" className="btn btn-primary">登陆</button>
+            </div>
           </div>
         </form>
       )

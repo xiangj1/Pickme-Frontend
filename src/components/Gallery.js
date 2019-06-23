@@ -62,15 +62,15 @@ class Gallery extends React.Component {
     return (
       <div className='m-5'>
         <div className="row px-5">
-          <form onSubmit={this.handleSubmit} className="form-row w-50">
-            <label>输入提取码</label>
-            <div className="col">
+          <form onSubmit={this.handleSubmit} className="form-row">
+            <label className="col-12">输入提取码</label>
+            <div className="col-12 col-lg-6 mb-2">
               <input type="text" value={this.state.code} onChange={this.handleChange} className="form-control" ></input>
             </div>
-            <div className="col">
-              <button type="submit" className="btn btn-primary">提交</button>
+            <div className="col-6 col-lg-3">
+              <button type="submit" className="btn btn-primary">提取</button>
             </div>
-            <div className="col">
+            <div className="col-6 col-lg-3">
               <input type="checkbox" onChange={this.handleSelect} className="form-check form-check-inline" />已选
             </div>
           </form>
@@ -91,7 +91,7 @@ class Gallery extends React.Component {
                 <a href={url} target="_blank" rel="noopener noreferrer">
                   <img src={url} className="img-fluid mb-3" alt="" />
                 </a>
-                <button onClick={() => this.handleClick(key, image_data)}>
+                <button className={selected ? "btn btn-outline-secondary" : "btn btn-primary"} onClick={() => this.handleClick(key, image_data)}>
                   {selected ? '已选' : 'Pick Me!'}
                 </button>
               </div>
