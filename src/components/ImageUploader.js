@@ -90,24 +90,17 @@ class ImageUploader extends React.Component {
 
       alert('Uploading, please wait');
       const storageRef = firebase.storage().ref();
-      const databaseRef = firebase.database();
 
       await Promise.all(this.state.files.map(file => {
         return new Promise((resolve, reject) => {
 
-          storageRef.child(`images/${file.name}`)
+          storageRef.child(`images/${this.state.code}/${file.name}`)
             .put(file, { 'contentType': file.type })
             .then(snapshot => {
-
-              snapshot.ref.getDownloadURL()
-                .then(url => {
-                  let [file_name] = file.name.split('.');
-                  databaseRef.ref(`images/${this.state.code}/` + file_name).set({ file_name: file.name, url, selected: false });
-
-                  resolve({ file_name: file.name, url })
-
-                }).catch(err => reject({ file_name: file.name, err }))
-            }).catch(err => reject({ file_name: file.name, err }))
+              console.log(`File: ${file.name} processing`)
+              resolve(snapshot);
+            })
+            .catch(err => reject({ file_name: file.name, err }))
 
         })
       }));

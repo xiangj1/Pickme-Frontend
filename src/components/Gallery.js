@@ -83,13 +83,13 @@ class Gallery extends React.Component {
             return entry[1].selected === this.state.select_status;
           }).map(entry => {
             const [key, image_data] = entry;
-            const {file_name, url, selected} = image_data;
+            const {file_name, url, thumb_url, selected} = image_data;
             
             return (
               <div className="col-lg-3 col-md-3 mt-3" key={key}>
                 <label>{file_name}</label>
                 <a href={url} target="_blank" rel="noopener noreferrer">
-                  <img src={url} className="img-fluid mb-3" alt="" />
+                  <img src={thumb_url} className="img-fluid mb-3" alt="" />
                 </a>
                 <button className={selected ? "btn btn-outline-secondary" : "btn btn-primary"} onClick={() => this.handleClick(key, image_data)}>
                   {selected ? '已选' : 'Pick Me!'}
