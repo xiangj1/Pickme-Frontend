@@ -91,21 +91,22 @@ class ImageUploader extends React.Component {
       alert('Uploading, please wait');
       const storageRef = firebase.storage().ref();
 
-      await Promise.all(this.state.files.map(file => {
-        return new Promise((resolve, reject) => {
+      const files = this.state.files.concat();
 
-          storageRef.child(`images/${this.state.code}/${file.name}`)
+      files.forEach((file, i) => {
+        file.status = 'uploading';
+        this.setState({...this.state, files})
+        storageRef.child(`images/${this.state.code}/${file.name}`)
             .put(file, { 'contentType': file.type })
             .then(snapshot => {
-              console.log(`File: ${file.name} processing`)
-              resolve(snapshot);
+              file.status = 'success';
+              this.setState({...this.state, files});
+            }).catch(err => {
+              file.state = 'fail';
+              this.setState({...this.state, files});
             })
-            .catch(err => reject({ file_name: file.name, err }))
-
-        })
-      }));
-
-      alert('Upload successful');
+      })
+      
     } catch (err) {
       console.log(err);
       alert('File is not been uploaded, check console');
@@ -115,10 +116,13 @@ class ImageUploader extends React.Component {
   }
 
   render() {
+    const classNames = {
+      success: 'text-success',
+      fail: 'text-danger',
+      uploading: 'text-info'
+    }
     
     if(!firebase.auth().currentUser) {
-      console.log('auth', firebase.auth());
-      console.log('currentUser', firebase.auth().currentUser);
       return (
         <form onSubmit={this.signIn}  className="mt-3 mx-5 px-5">
           <div className="form-row">
@@ -144,6 +148,15 @@ class ImageUploader extends React.Component {
         <input type="text" onChange={this.handleCode} className="m-2" /><br />
         <input id="file" type="file" onChange={this.handleChange.bind(this)} required multiple className="m-2"/>
         <button onClick={this.fileUploadHandler} className="m-2">Upload!</button><br />
+        <div>
+          {this.state.files.map(file => {
+            const className = file.status ? classNames[file.status] : 'text-secondary';
+            
+            return (
+              <label key={file.name} className={'m-2 ' + className}>{file.name}: {file.status || '还未上传'}</label>
+            )
+          })}
+        </div>
       </div>
     )
   }
