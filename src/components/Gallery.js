@@ -59,7 +59,7 @@ class Gallery extends React.Component {
   }
 
   extractFileNames = () => {
-    console.log(Object.keys(this.state.images).filter(key => this.state.images[key].selected).join(' '));
+    alert(Object.keys(this.state.images).filter(key => this.state.images[key].selected).join(' '));
   }
 
   render() {
