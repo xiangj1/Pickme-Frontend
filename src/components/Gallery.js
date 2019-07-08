@@ -58,6 +58,10 @@ class Gallery extends React.Component {
     this.setState({...this.state, select_status});
   }
 
+  extractFileNames = () => {
+    console.log(Object.keys(this.state.images).filter(key => this.state.images[key].selected).join(' '));
+  }
+
   render() {
     return (
       <div className='m-5'>
@@ -72,6 +76,7 @@ class Gallery extends React.Component {
             </div>
             <div className="col-6 col-lg-3">
               <input type="checkbox" onChange={this.handleSelect} className="form-check form-check-inline" />已选
+              <button onClick={this.extractFileNames}>提取文件名</button>
             </div>
           </form>
         </div>
